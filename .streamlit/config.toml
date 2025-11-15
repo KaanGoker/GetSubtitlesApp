@@ -1,0 +1,16 @@
+[server]
+maxUploadSize = 8192
+
+[theme]
+primaryColor = "#2f6df6"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f6f8fc"
+textColor = "#1f2937"
+font = "sans serif"
+
+[client]
+toolbarMode = "minimal"     # trims the 3-dot menu
+showErrorDetails = false     # optional
+
+[browser]
+gatherUsageStats = false     # optional
