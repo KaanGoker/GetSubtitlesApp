@@ -1,0 +1,10 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY streamlit_app.py .
+COPY ["./icon assets", "./icon assets"]
+
+RUN pip install streamlit requests pillow
+
+CMD ["streamlit", "run", "streamlit_app.py", "--server.port", "8501", "--server.address", "0.0.0.0", "--server.maxUploadSize", "8192"]

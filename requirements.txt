@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+python-multipart
+requests
+streamlit
+ffmpeg-python
+faster-whisper

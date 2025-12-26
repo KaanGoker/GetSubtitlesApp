@@ -1,0 +1,14 @@
+build/
+dist/
+*.spec
+*.exe
+.env
+pycache/
+*.pyc
+.vscode/
+.DS_Store
+Notes
+uploads/
+outputs/
+__pycache__/
+bin/
