@@ -13,7 +13,7 @@
 
 
 <p align="center">
-  <img src="assets/getsubtitlesapp.png" alt="GetSubtitles app" width="100%">
+  <img src="assets/cover.png" alt="GetSubtitlesApp: subtitles in 99 languages, on your own computer" width="100%">
 </p>
 
 ---
