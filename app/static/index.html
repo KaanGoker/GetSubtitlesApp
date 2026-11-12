@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="gs-token" content="{{token}}">
+<title>GetSubtitles</title>
+<link rel="icon" type="image/png" href="/static/icon.png">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div id="offline" class="banner banner-bad" hidden>
+  The app is not answering. Start GetSubtitles again, then this page continues by itself.
+</div>
+<div id="demo" class="banner" hidden>
+  This is the free demo on a shared processor. It runs one file at a time for all visitors,
+  with the Fast model only, for files up to <span id="demo-limit">500</span> MB<span id="demo-minutes"></span>.
+  The app for your own computer has every model, can use your NVIDIA GPU and takes long files:
+  <a href="https://github.com/KaanGoker/GetSubtitlesApp/releases/latest" target="_blank" rel="noopener">Download the app</a>
+  <a href="https://github.com/KaanGoker/GetSubtitlesApp" target="_blank" rel="noopener">GitHub</a>
+</div>
+
+<header class="top">
+  <h1 class="brand">GetSubtitles<span>App</span></h1>
+  <p class="tagline">Subtitles for any video, in 99 languages.</p>
+  <div class="top-right">
+    <span id="device" class="chip" hidden></span>
+    <button id="close-app" class="btn btn-quiet" type="button" hidden>Close the app</button>
+  </div>
+</header>
+
+<main class="layout">
+
+  <section class="left" aria-label="Files">
+    <div id="screen" class="screen">
+      <video id="player" playsinline preload="metadata" hidden></video>
+      <button id="drop" class="drop" type="button" aria-label="Add video or audio files"></button>
+      <p id="caption" class="caption" aria-live="polite"></p>
+      <input id="file-input" type="file" multiple hidden>
+    </div>
+
+    <div id="transport" class="transport" hidden>
+      <button id="play" class="play" type="button" aria-label="Play"></button>
+      <input id="seek" class="seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Position">
+      <span id="clock" class="clock">0:00 / 0:00</span>
+    </div>
+
+    <div class="reel">
+      <div class="reel-head">
+        <h2>Files</h2>
+        <button id="zip" class="btn btn-quiet" type="button" hidden>All subtitles (.zip)</button>
+        <button id="add-files" class="btn btn-quiet" type="button">Add files</button>
+      </div>
+      <ul id="rows" class="rows"></ul>
+      <p id="rows-empty" class="muted">No files yet. A large video uploads faster as audio only.</p>
+    </div>
+  </section>
+
+  <section class="right">
+
+    <form id="settings" class="panel" autocomplete="off">
+      <h2>Settings</h2>
+
+      <label class="field">
+        <span class="label">Spoken language</span>
+        <select id="language"></select>
+        <span class="hint">Automatic detection listens to the first minutes of speech. If it picks the wrong language, choose it here.</span>
+      </label>
+
+      <fieldset class="field">
+        <legend class="label">Subtitle language</legend>
+        <div class="segmented" id="task">
+          <label><input type="radio" name="task" value="transcribe" checked><span>Same as spoken</span></label>
+          <label><input type="radio" name="task" value="translate"><span>English (translate)</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend class="label">Subtitle style</legend>
+        <div class="segmented" id="style">
+          <label><input type="radio" name="style" value="default" checked>
+            <span><i class="shape shape-wide" aria-hidden="true"></i>Standard, two lines</span></label>
+          <label><input type="radio" name="style" value="vertical">
+            <span><i class="shape shape-tall" aria-hidden="true"></i>Vertical, short lines</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend class="label">Model</legend>
+        <div class="models" id="models"></div>
+        <div id="gpu-offer" class="hint" hidden>
+          <span id="gpu-text"></span>
+          <button id="gpu-install" class="btn btn-quiet" type="button">Download GPU support</button>
+        </div>
+        <span id="turbo-note" class="hint" hidden>Turbo cannot translate, so the Best model is used for this run.</span>
+      </fieldset>
+
+      <button id="create" class="btn btn-main" type="submit" disabled>Create subtitles</button>
+    </form>
+
+    <section id="editor" class="panel editor" hidden>
+      <div class="editor-head">
+        <button id="editor-back" class="btn btn-quiet" type="button">Settings</button>
+        <h2 id="editor-title"></h2>
+        <span id="save-state" class="muted" aria-live="polite"></span>
+      </div>
+
+      <details class="tools">
+        <summary>Tools</summary>
+        <div class="tool">
+          <input id="find" type="text" placeholder="Find" aria-label="Find">
+          <input id="replace" type="text" placeholder="Replace with" aria-label="Replace with">
+          <button id="replace-all" class="btn btn-quiet" type="button">Replace all</button>
+        </div>
+        <div class="tool">
+          <label for="shift">Move every line by</label>
+          <input id="shift" type="number" step="0.1" value="0.5" aria-label="Seconds">
+          <span>seconds</span>
+          <button id="shift-apply" class="btn btn-quiet" type="button">Apply</button>
+        </div>
+        <div class="tool">
+          <button id="reset-edits" class="btn btn-quiet" type="button">Undo all edits</button>
+          <span id="tool-note" class="muted" aria-live="polite"></span>
+        </div>
+      </details>
+
+      <ol id="cues" class="cues"></ol>
+
+      <div class="editor-foot">
+        <span class="muted">Download</span>
+        <button class="btn btn-main btn-small" type="button" data-format="srt">.srt</button>
+        <button class="btn btn-small" type="button" data-format="vtt">.vtt</button>
+        <button class="btn btn-small" type="button" data-format="txt">.txt</button>
+      </div>
+    </section>
+
+  </section>
+</main>
+
+<footer class="foot">
+  <p><strong>Accuracy.</strong> The subtitles are made by an AI model (OpenAI Whisper). It can mishear words or write text that was never said. Read the result before you use it.</p>
+  <p id="privacy-local"><strong>Privacy.</strong> The app runs on your own computer. Your files are not sent anywhere.</p>
+  <p id="privacy-demo" hidden><strong>Privacy.</strong> This demo runs on a shared server. Your file is deleted from it about an hour after you last used it. Do not upload sensitive, confidential or personal data.</p>
+  <p id="storage" hidden><strong>Storage.</strong> Downloaded models are kept in <code id="storage-path"></code><span id="storage-models"></span>
+    <button id="open-storage" class="btn btn-quiet" type="button">Open the folder</button></p>
+  <p class="foot-row">
+    <button id="clear-all" class="btn btn-quiet" type="button">Free memory and delete uploaded files</button>
+    <span class="muted">Powered by OpenAI's Whisper.</span>
+  </p>
+</footer>
+
+<script src="/static/app.js" defer></script>
+</body>
+</html>

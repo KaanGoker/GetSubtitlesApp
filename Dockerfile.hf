@@ -1,0 +1,37 @@
+# The public demo on Hugging Face Spaces.
+FROM python:3.10-slim
+
+ENV DO_NOT_TRACK=1 \
+    HF_HUB_DISABLE_TELEMETRY=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+WORKDIR /app
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends ffmpeg \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# The Fast model (Whisper small) is part of the image, so the first job after a restart
+# does not wait for a download. The app loads it from /app/models/small.
+ARG WHISPER_SMALL_REVISION=536b0662742c02347bc0e980a01041f333bce120
+RUN HF_HOME=/tmp/build-hf python -c "from faster_whisper.utils import download_model; \
+download_model('small', output_dir='/app/models/small', revision='$WHISPER_SMALL_REVISION')" \
+ && rm -rf /app/models/small/.cache /tmp/build-hf \
+ && chmod -R a+rX /app/models
+
+COPY ./app ./app
+
+# Spaces runs the container as user 1000; everything it writes goes to /tmp.
+RUN useradd -m -u 1000 user
+ENV GETSUBTITLES_DEMO=1 \
+    HOME=/tmp \
+    HF_HOME=/tmp/hf \
+    OMP_NUM_THREADS=2
+USER user
+
+EXPOSE 7860
+
+CMD ["uvicorn", "app.main:create_app", "--factory", "--host", "0.0.0.0", "--port", "7860", "--no-access-log"]

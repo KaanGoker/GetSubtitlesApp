@@ -1,0 +1,77 @@
+name: release
+
+# Builds the app for Windows, Linux and macOS, runs one real job with each build,
+# and attaches the files to the release of the tag (a draft is made when there is none).
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Build this release tag (empty: the branch you run it on, no release)"
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            binary: dist/GetSubtitles.exe
+            asset: GetSubtitlesApp.zip
+          - os: ubuntu-22.04
+            binary: dist/GetSubtitles
+            asset: GetSubtitles-linux-x64.tar.gz
+          - os: macos-15
+            binary: dist/GetSubtitles.app/Contents/MacOS/GetSubtitles
+            asset: GetSubtitles-macos-arm64.zip
+    runs-on: ${{ matrix.os }}
+    env:
+      DO_NOT_TRACK: "1"
+      HF_HUB_DISABLE_TELEMETRY: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt pyinstaller imageio-ffmpeg
+      - run: python build.py
+      - name: One real job with the built app
+        run: python tools/smoke_app.py ${{ matrix.binary }}
+      - name: Pack (Windows)
+        if: runner.os == 'Windows'
+        run: Compress-Archive -Path dist/GetSubtitles.exe -DestinationPath ${{ matrix.asset }}
+      - name: Pack (Linux)
+        if: runner.os == 'Linux'
+        run: tar -czf ${{ matrix.asset }} -C dist GetSubtitles
+      - name: Pack (macOS)
+        if: runner.os == 'macOS'
+        run: ditto -c -k --keepParent dist/GetSubtitles.app ${{ matrix.asset }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.asset }}
+          path: ${{ matrix.asset }}
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/') || inputs.tag != ''
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: ${{ inputs.tag || github.ref_name }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: assets
+          merge-multiple: true
+      - run: |
+          gh release view "$TAG" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1 \
+            || gh release create "$TAG" -R "$GITHUB_REPOSITORY" --draft --title "GetSubtitlesApp $TAG" --notes ""
+          gh release upload "$TAG" assets/* -R "$GITHUB_REPOSITORY" --clobber

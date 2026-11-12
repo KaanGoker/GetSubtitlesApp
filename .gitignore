@@ -12,3 +12,10 @@ uploads/
 outputs/
 __pycache__/
 bin/
+*.log
+.pytest_cache/
+models/
+
+.venv/
+venv/
+env/

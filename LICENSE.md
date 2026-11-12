@@ -75,3 +75,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+## Fonts (Syne, Instrument Sans, IBM Plex Mono)
+
+The fonts in `app/static/fonts` are licensed under the SIL Open Font License, Version 1.1.
+The full license text and the copyright notices are in `app/static/fonts/OFL.txt`.
+
+- Syne: Copyright 2019 The Syne Project Authors
+- Instrument Sans: Copyright 2022 The Instrument Sans Project Authors
+- IBM Plex Mono: Copyright 2017 IBM Corp.

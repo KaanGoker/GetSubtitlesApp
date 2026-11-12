@@ -3,72 +3,108 @@
 [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/KaanGoker/GetSubtitlesApp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/KaanGoker/GetSubtitlesApp/tree/main?tab=License-1-ov-file)
 
-<h2 align="center">
-  <strong>
-    <a href="https://huggingface.co/spaces/KaanGoker/GetSubtitlesApp" target="_blank">
-      🚀 Click Here to Try the App Live on Hugging Face! 🚀
-    </a>
-  </strong>
-</h2>
-
+Subtitles for any video, in 99 languages, on your own computer.
 
 <p align="center">
-  <img src="assets/getsubtitlesapp.png" alt="GetSubtitles app" width="100%">
+  <img src="assets/cover.png" alt="GetSubtitlesApp: subtitles in 99 languages, on your own computer" width="100%">
+</p>
+
+<h3 align="center">
+  <a href="https://huggingface.co/spaces/KaanGoker/GetSubtitlesApp" target="_blank">Try the demo on Hugging Face</a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/KaanGoker/GetSubtitlesApp/releases/latest">Download for Windows, Linux and macOS</a>
+</h3>
+
+---
+
+**GetSubtitles** makes subtitles for video and audio files in 99 languages. It can also translate the speech from any of those languages into English subtitles. It runs on OpenAI's Whisper model, through faster-whisper.
+
+It has a **mode for vertical videos**, with the short single lines that Instagram Reels, YouTube Shorts and TikTok need.
+
+**The problem.** Video editors offer automatic subtitles, but often only for English and a few other big languages. For anyone working in a less common language, subtitles are still slow, manual work.
+
+**What it does.** You drop in a file, the app writes the subtitles, you fix them in the editor and download a `.srt` file. Everything runs on your computer.
+
+<p align="center"><img src="assets/demo.gif" alt="A video goes in with the Fast model, the subtitles come out and play on the video in the editor" width="100%"></p>
+
+<p align="center">
+  <img src="assets/app_screenshot.png" alt="The main page: files, language, subtitle style and model" width="100%">
+</p>
+
+<p align="center">
+  <img src="assets/editor_screenshot.png" alt="The subtitle editor: the video with its lines and their times" width="100%">
 </p>
 
 ---
 
-<p align="center">
-  <img src="assets/app_screenshot.png" alt="GetSubtitles App Screenshot" width="400">
-</p>
+## Features
 
-<h2 align="center">
-  <strong>
-    <a href="https://huggingface.co/spaces/KaanGoker/GetSubtitlesApp" target="_blank">
-      🚀 Click Here to Try the App Live on Hugging Face! 🚀
-    </a>
-  </strong>
-</h2>
-
----
-
-**GetSubtitles** automatically generates accurate subtitles for video or audio files in 99 languages. The application can also translate subtitles from any of those languages into English. 
-
-It features a **special mode designed for vertical videos**, creating the short, fast-paced captions ideal for platforms like Instagram Reels, YouTube Shorts, and TikTok.
-
-Powered by OpenAI's Whisper model, the app ensures high-accuracy transcriptions.
-
-**The Problem It Solves**
-While modern video editing software offers automatic subtitles, this feature is often limited to English and a handful of other popular languages. For creators working with less common languages, generating subtitles remains a tedious, manual task.
-
-**The Solution**
-GetSubtitles was built to solve this. It's a simple, user-friendly desktop application that delivers accurate .srt subtitle files, saving creators from hours of manual work, no matter what language they speak.
+-   **Language**: The app detects the spoken language from up to two minutes of speech, so a video that opens with music still gets the right language. When it gets it wrong, you choose the language yourself.
+-   **Transcription and translation**: Subtitles in the spoken language, or translated into English.
+-   **Audio tracks**: When a video has more than one audio track, you choose the one to transcribe.
+-   **Four models**: `Fast`, `Balanced`, `Turbo` and `Best`, from the quickest to the most accurate. The page shows the Whisper model behind each one and its size.
+-   **Subtitle styles**: Standard `16:9` videos get up to two lines of 42 characters. Vertical `9:16` videos get single lines of at most 38 characters.
+-   **Editor**: Check the subtitles on the video and fix them in the app. Change the text and the times, split or join lines, find and replace a misheard name, move every line earlier or later.
+-   **Formats**: Download the result as `.srt`, `.vtt` or `.txt`.
+-   **Several files**: Add several files at once. They run one after another, and you can download all the subtitles as one `.zip`.
+-   **Silence filter**: Parts without speech are skipped, so music and silence produce less invented text.
+-   **Large files**: Files up to 8 GB are written straight to disk, so a long video does not fill the memory.
+-   **GPU**: On Windows and Linux with an NVIDIA graphics card, one button downloads the GPU support and the models run on the card.
+-   **Download progress**: Model and GPU support downloads show their progress in percent.
+-   **Cross platform**: One file to download for Windows, Linux and macOS, with `ffmpeg` inside. Docker works too.
 
 ---
 
-## ✨ Features
--   **Automatic Language Detection**: No need to specify the source language.
--   **Transcription & Translation**: Generate subtitles in the original language or translate them to English.
--   **Multiple Models**: Choose between `Fast`, `Balanced`, and `Best` models to balance speed and accuracy.
--   **Subtitle Styles**: Optimize subtitles for standard `16:9` videos or `9:16` vertical videos (Reels, Shorts).
--   **Simple UI**: Clean and intuitive interface powered by Streamlit.
--   **Cross-Platform**: Works on Windows (via `.exe`) and on any system with Docker.
+## Usage
 
----
+### Windows
 
-## 💻 Usage For Windows Users
+1.  **Download**: Go to the [Releases](https://github.com/KaanGoker/GetSubtitlesApp/releases) page and download `GetSubtitlesApp.zip` from the latest release.
+2.  **Extract**: Unzip it into a new folder.
+3.  **Run**: Double-click `GetSubtitles.exe`. The app opens in your web browser.
 
-1.  **Download**: Go to the [**Releases**](https://github.com/KaanGoker/GetSubtitlesApp/releases) page and download the latest `.zip` file (e.g., `GetSubtitles-v1.0.zip`).
-2.  **Extract**: Unzip the downloaded file into a new folder.
-3.  **Run**: Double-click on `GetSubtitles.exe`. The application will open in your web browser automatically.
+Windows may show "Windows protected your PC" the first time. The exe is not code signed, so Windows does not know who made it. Click **More info**, then **Run anyway**.
 
-**Note**: Your PC must have an internet connection the first time you run the app. It needs to download the AI models to work. This can take some time, especially if you choose the "Best" quality model. This is a one-time download.
+The app closes itself about a minute after you close its browser tab. The **Close the app** button at the top of the page closes it right away.
 
-## 🛠️ For Developers
+### Linux
 
-### 1. Running from Source
+1.  Download `GetSubtitles-linux-x64.tar.gz` from the [latest release](https://github.com/KaanGoker/GetSubtitlesApp/releases/latest) and unpack it.
+2.  Run `./GetSubtitles`. The app opens in your web browser.
 
-If you want to contribute to the project or run it directly from the source code without Docker:
+It was built on Ubuntu 22.04 and runs on that and newer x64 systems.
+
+### macOS (Apple Silicon)
+
+1.  Download `GetSubtitles-macos-arm64.zip` from the [latest release](https://github.com/KaanGoker/GetSubtitlesApp/releases/latest) and unzip it.
+2.  Open `GetSubtitles.app`. The app opens in your web browser.
+
+The app is not signed by Apple, so macOS blocks it the first time. Open **System Settings**, then **Privacy & Security**, and click **Open Anyway** next to the message about GetSubtitles. On a Mac the models run on the processor; Fast, Balanced and Turbo are the practical choices. The macOS build passes an automatic test with a real file on every release, but it has not been tried by hand yet. If something goes wrong, please open an issue.
+
+### On every system
+
+**First run**: The app downloads a model the first time you use it, so it needs an internet connection then. Each model is downloaded once:
+
+| Model | Whisper model | Size |
+| --- | --- | --- |
+| Fast | small | 0.5 GB |
+| Balanced | medium | 1.5 GB |
+| Turbo | large-v3-turbo | 1.6 GB |
+| Best | large-v2 | 3.1 GB |
+
+Turbo cannot translate, so a translation chosen with Turbo runs on Best.
+
+Best is heavy. On a GPU it needs about 8 GB of graphics memory; on the processor it is slow. With a smaller card, use Turbo or Balanced.
+
+**NVIDIA GPU (Windows and Linux)**: The app runs on the processor at first. When your PC has an NVIDIA graphics card, the page offers **Download GPU support** under the models. It downloads cuBLAS 12 and cuDNN 9 from PyPI, about 1.2 GB, once, and checks each file against its checksum. On disk it takes about 1.9 GB. After that the models run on the graphics card.
+
+**Storage**: The models, the GPU support and the log are kept in `%LOCALAPPDATA%\GetSubtitles` on Windows, `~/.local/share/GetSubtitles` on Linux and `~/Library/Application Support/GetSubtitles` on macOS. The bottom of the page shows the folder, and **Open the folder** opens it. Delete the folder to free the space; the app downloads a model again when it needs it.
+
+## For developers
+
+### 1. Running from source
+
+To work on the app or run it from the source code without Docker:
 
 1.  **Clone the repository**:
     ```bash
@@ -77,143 +113,119 @@ If you want to contribute to the project or run it directly from the source code
     ```
 
 2.  **Set up your environment**:
-    It is highly recommended to use a Python virtual environment. Once activated, install the required dependencies:
+    Use a Python virtual environment and install the dependencies. You also need `ffmpeg` on your PATH.
     ```bash
     pip install -r requirements.txt
     ```
 
-3.  **Run the servers**:
-    You will need to run the backend server (FastAPI) and the frontend server (Streamlit) in two separate terminals.
-
-    * **In Terminal 1 (Run Backend):**
-        ```bash
-        uvicorn app.main:app --reload
-        ```
-
-    * **In Terminal 2 (Run Frontend):**
-        ```bash
-        streamlit run streamlit_app.py
-        ```
-    The application will start and open in your web browser automatically.
-
----
-
-### 2. Using Docker (macOS, Linux, Windows Pro)
-
-This method works on any system with Docker. We provide two options.
-
-**Prerequisites**:
--   Docker must be installed.
-
----
-
-**Method A: Quick Start**
-This method uses pre-built images from the GitHub Container Registry (ghcr.io) and is the fastest way to get started.
-
-1.  Download the `docker-compose.prod.yml` file from this repository.
-2.  In the same folder, run the application from your terminal:
+3.  **Run the app**:
     ```bash
-    docker-compose -f docker-compose.prod.yml up
+    python launcher.py
     ```
-    This command will pull the finished images from GitHub and start them.
+    The app starts and opens in your web browser.
 
-**Accessing the Application:**
-Once the containers are running, open your web browser and navigate to:
-**`http://localhost:8501`**
+    **NVIDIA GPU (optional)**: Install the CUDA libraries in the same environment and the app uses the GPU on its own. Without them it runs on the CPU.
+    ```bash
+    pip install nvidia-cublas-cu12 "nvidia-cudnn-cu12==9.*"
+    ```
+
+4.  **Run the tests**:
+    ```bash
+    pip install -r requirements-dev.txt
+    python -m playwright install chromium
+    pytest            # fast tests and the page in a real browser, no model needed
+    pytest -m slow    # the whole pipeline with the tiny Whisper model
+    ```
+    [docs/release-checklist.md](docs/release-checklist.md) lists the checks to do by hand before a release.
 
 ---
 
-**Method B: Build from Source**
-Use this method if you want to modify the code and build the images yourself.
+### 2. Using Docker (macOS, Linux, Windows)
+
+This works on any system with Docker. The container runs the models on the CPU.
 
 1.  Clone the repository:
     ```bash
     git clone https://github.com/KaanGoker/GetSubtitlesApp.git
     cd GetSubtitlesApp
     ```
-2.  Build and run the services (using the standard `docker-compose.yml` file):
+2.  Build and run:
     ```bash
-    docker-compose up --build
+    docker compose up --build
     ```
-    This will build the images locally, which can take time, especially for the backend.
+3.  Open **`http://localhost:8000`** in your browser.
 
-**Accessing the Application:**
-Once the containers are running, open your web browser and navigate to:
-**`http://localhost:8501`**
+The models are kept in a Docker volume, so they are downloaded only once.
+
+The app answers only on this computer. To open it to your network, change the port line in `docker-compose.yml` to `"8000:8000"` and add the address you use to `GETSUBTITLES_ALLOWED_HOSTS`.
 
 ---
 
-## 3. Building the Windows Executable
+### 3. Building the app
 
-These instructions are for developers who want to rebuild the `.exe` files from the source code using **PyInstaller**.
+The app is built with **PyInstaller**, on the system it is for:
 
-1.  **Install PyInstaller**:
-    ```bash
-    pip install pyinstaller
-    ```
+```bash
+pip install pyinstaller imageio-ffmpeg
+python build.py
+```
 
-2.  **Prerequisite: Add `ffmpeg`**:
-    * Download a **static `ffmpeg.exe` build** (e.g., from [gyan.dev](https://www.gyan.dev/ffmpeg/builds/)).
-    * Create a `bin` folder in the root of the project.
-    * Place the `ffmpeg.exe` file inside it. The final path must be `bin/ffmpeg.exe`.
+The result is `dist/GetSubtitles.exe` on Windows, `dist/GetSubtitles` on Linux and `dist/GetSubtitles.app` on macOS. It holds the app, the page and a static `ffmpeg` (from `imageio-ffmpeg`, or your own build in `bin/`).
 
-3.  **Build the Backend (PowerShell)**:
-    Run the following command to build the server executable. The backticks (` ` `) are for line continuation in PowerShell.
-    ```powershell
-    pyinstaller .\server_entry.py `
-      --name GetSubtitlesServer `
-      --onefile `
-      --noconsole `
-      --icon ".\icon assets\getsubtitleserver.ico" `
-      --add-binary "bin\ffmpeg.exe;bin" `
-      --add-data "icon assets;icon assets" `
-      --hidden-import ctranslate2 `
-      --hidden-import faster_whisper `
-      --hidden-import uvicorn.lifespan `
-      --hidden-import uvicorn.loops.auto `
-      --hidden-import uvicorn.protocols.http.auto `
-      --hidden-import uvicorn.protocols.websockets.auto `
-      --hidden-import uvicorn.workers `
-      --clean
-    ```
+`python tools/smoke_app.py dist/GetSubtitles` starts a build, runs one real file through it and closes it.
 
-4.  **Build the Frontend (PowerShell)**:
-    Next, run this command to build the main UI executable.
-    ```powershell
-    pyinstaller .\ui_entry.py `
-      --name GetSubtitles `
-      --onefile `
-      --noconsole `
-      --icon ".\icon assets\getsubtitles.ico" `
-      --add-data "streamlit_app.py;." `
-      --add-data "icon assets;icon assets" `
-      --hidden-import streamlit.web.bootstrap `
-      --hidden-import streamlit.runtime `
-      --hidden-import streamlit.runtime.scriptrunner `
-      --hidden-import streamlit.runtime.scriptrunner.magic_funcs `
-      --copy-metadata streamlit `
-      --collect-data streamlit `
-      --clean
-    ```
-
-5.  **Final Output**:
-    The final executable files (`GetSubtitles.exe` and `GetSubtitlesServer.exe`) will be created in the `dist/` folder.
+Pushing a `v*` tag runs `.github/workflows/release.yml`: it builds the three systems on GitHub, runs that test on each, and attaches the files to the release.
 
 ---
 
-## ℹ️ Disclaimer & Privacy
+## How it works
 
-- **AI Accuracy:** This tool uses OpenAI's Whisper model. While it is state-of-the-art, it may still generate errors, specifically with technical jargon, accents, or background noise. Please verify the generated subtitles.
-- **Usage of Hugging Face Web Demo:** Uploaded files are processed temporarily on the server to generate subtitles. 
-      **Do not upload sensitive, confidential, or personal data** to this public demo.
-- **Local Processing:** Unlike the web demo, this GitHub version runs entirely on your local machine. Your audio/video files are processed on your CPU/GPU and are never sent to external servers. Your data remains private.
+The app is one FastAPI process. It serves its own page, takes the files, runs the jobs and serves the subtitles. The packaged app starts it on a free port and opens the browser.
 
-## 📄 License
+-   **Upload**: The browser sends the file as a stream and the app writes it to disk. `ffmpeg` lists the audio tracks.
+-   **Job**: A job extracts the chosen audio track as 16 kHz mono and gives it to `faster-whisper`. Jobs run one at a time, in the order they were started.
+-   **Language**: Whisper detects the language on up to two minutes of speech, not only the first 30 seconds. A language you choose on the page skips the detection.
+-   **GPU**: The app looks for cuBLAS 12 and cuDNN 9, from pip or from the GPU support the packaged app downloads on Windows and Linux. When they load, the models run on the GPU. If the GPU fails during a job, the job runs again on the CPU.
+-   **Subtitles**: The app builds the subtitle lines from the word times: two lines of at most 42 characters for standard video, single lines of at most 38 characters for vertical video.
+-   **Editor**: The page plays the file and shows the line at the playback position. Every edit is saved in the app, and the downloads use the edited lines.
+-   **Closing**: The page keeps one connection open. When no page is connected for about a minute and no job is running, the desktop app closes itself.
+
+## Project structure
+
+```
+GetSubtitlesApp/
+├── app/
+│   ├── main.py          the routes: page, uploads, jobs, subtitles, editing, storage, GPU support
+│   ├── engine.py        Whisper models: loading, caching, download progress, GPU to CPU fallback
+│   ├── gpu.py           GPU support: cuBLAS and cuDNN from PyPI, for Windows and Linux, checked by checksum
+│   ├── audio.py         ffmpeg: audio tracks, 16 kHz mono wav
+│   ├── subtitles.py     subtitle lines and the .srt, .vtt, .txt writers
+│   └── static/          the page: index.html, style.css, app.js, fonts
+├── launcher.py          the desktop app: free port, browser, storage folder, closing
+├── build.py             builds the app for Windows, Linux or macOS with PyInstaller
+├── tools/smoke_app.py   runs one real file through a built app
+├── tests/               unit, API, real browser and real model tests
+├── docs/release-checklist.md
+├── .github/workflows/   tests on every push; builds and attaches the three apps on a release tag
+├── Dockerfile           the app in a container
+├── Dockerfile.hf        the Hugging Face demo
+└── docker-compose.yml
+```
+
+---
+
+## Disclaimer and privacy
+
+- **Accuracy**: Whisper makes mistakes, mostly with technical terms, accents and background noise. Check the subtitles before you use them.
+- **The Hugging Face demo**: Files are processed on a shared server and deleted from it about an hour after you last used them. The demo counts how many times the page is opened each day; it keeps only that number, with no address, browser or text. **Do not upload sensitive, confidential or personal data** to the demo.
+- **The app on your computer**: Your files are processed on your own CPU or GPU and never sent anywhere. The only downloads are the models and, if you ask for it, the GPU support.
+
+## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-## 🙏 Acknowledgements
+## Acknowledgements
 
--   This tool is powered by OpenAI's Whisper.
--   The user interface is built with Streamlit.
--   The backend is served by FastAPI.
+-   OpenAI's Whisper, through faster-whisper.
+-   FastAPI and uvicorn.
+-   The Syne, Instrument Sans and IBM Plex Mono fonts (SIL Open Font License).

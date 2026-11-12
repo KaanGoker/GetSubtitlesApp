@@ -1,7 +1,5 @@
-fastapi
-uvicorn[standard]
-python-multipart
-requests
-streamlit
-ffmpeg-python
-faster-whisper
+fastapi==0.162.2
+uvicorn[standard]==0.54.0
+faster-whisper==1.2.1
+av==17.1.0
+ctranslate2==4.8.5

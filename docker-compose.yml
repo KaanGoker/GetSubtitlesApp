@@ -1,20 +1,12 @@
 services:
-  backend:
-    build:
-      context: .
-      dockerfile: Dockerfile.backend
+  getsubtitles:
+    build: .
     ports:
-      - "8000:8000"
-
-  frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
-    ports:
-      - "8501:8501"
-    
+      - "127.0.0.1:8000:8000"   # this computer only; use "8000:8000" to open it to your network
     environment:
-      - BACKEND_URL=http://backend:8000
-    
-    depends_on:
-      - backend
+      - GETSUBTITLES_ALLOWED_HOSTS=localhost,127.0.0.1
+    volumes:
+      - models:/root/.cache/huggingface
+
+volumes:
+  models:
