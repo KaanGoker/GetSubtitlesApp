@@ -44,6 +44,7 @@ It has a **mode for vertical videos**, with the short single lines that Instagra
 -   **Audio tracks**: When a video has more than one audio track, you choose the one to transcribe.
 -   **Four models**: `Fast`, `Balanced`, `Turbo` and `Best`, from the quickest to the most accurate. The page shows the Whisper model behind each one and its size.
 -   **Subtitle styles**: Standard `16:9` videos get up to two lines of 42 characters. Vertical `9:16` videos get single lines of at most 38 characters.
+-   **Timing**: Whisper tends to start a subtitle a little before the words are spoken. The app moves each start to where the speech begins, by at most half a second, so lines do not show up early.
 -   **Editor**: Check the subtitles on the video and fix them in the app. Change the text and the times, split or join lines, find and replace a misheard name, move every line earlier or later.
 -   **Formats**: Download the result as `.srt`, `.vtt` or `.txt`.
 -   **Several files**: Add several files at once. They run one after another, and you can download all the subtitles as one `.zip`.

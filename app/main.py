@@ -24,6 +24,7 @@ from fastapi.staticfiles import StaticFiles
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 from pydantic import BaseModel, Field, model_validator
 
+from app.align import snap_to_speech
 from app.gpu import DOWNLOAD_BYTES as GPU_DOWNLOAD_BYTES
 from app.audio import AudioError, extract_wav, probe
 from app.engine import MODEL_SIZES, Cancelled, Engine, gpu_count
@@ -236,7 +237,7 @@ def create_app(engine: Optional[Engine] = None,
                 should_cancel=lambda: job.cancelled,
                 on_download=on_download,
             )
-            segments = result.pop("segments")
+            segments = snap_to_speech(result.pop("segments"), wav)
             words = [w for s in segments for w in s["words"]]
             if req.style == "vertical" and words:
                 cues = build_vertical_cues(words)
